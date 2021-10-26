@@ -5,6 +5,9 @@
   "repository": "https://github.com/wnodelfino/clean-react.git",
   "author": "Wellynton Delfino <wnodelfino@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {},
   "devDependencies": {
     "@types/jest": "^27.0.2",
