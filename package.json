@@ -11,8 +11,11 @@
     "test:staged": "yarn test -- --findRelatedTests",
     "test:ci": "yarn test -- --coverage"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
   "devDependencies": {
+    "@types/axios": "^0.14.0",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.2",
     "@types/node": "^16.11.6",
