@@ -4,6 +4,7 @@ import Spinner from "@/pressentation/components/spinner/spinner";
 import LoginHeader from "@/pressentation/components/login-header/login-header";
 import Footer from "@/pressentation/components/footer/footer";
 import Input from "@/pressentation/components/input/input";
+import FormStatus from "@/pressentation/components/form-status/form-status";
 
 const Login: React.FC = () => {
   return (
@@ -19,10 +20,7 @@ const Login: React.FC = () => {
           Entrar
         </button>
         <span className={Styles.link}>Criar Conta</span>
-        <div className={Styles.errorWrap}>
-          <Spinner className={Styles.spinner} />
-          <span className={Styles.error}>Erro</span>
-        </div>
+        <FormStatus />
       </form>
 
       <Footer />
