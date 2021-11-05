@@ -6,8 +6,8 @@ import {
   LoginHeader,
   FormStatus,
 } from "@/pressentation/components";
-import { Validation } from "@/pressentation/protocols/validation";
 import Context from "@/pressentation/contexts/form/form-context";
+import { Validation } from "@/pressentation/protocols/validation";
 
 type Props = {
   validation: Validation;
@@ -21,7 +21,6 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     passwordError: "Campo obrigatório",
     mainError: "",
   });
-
   useEffect(() => {
     validation.validate({ email: state.email });
   }, [state.email]);
@@ -29,7 +28,6 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
   return (
     <div className={Styles.login}>
       <LoginHeader />
-
       <Context.Provider value={{ state, setState }}>
         <form className={Styles.form}>
           <h2>Login</h2>
@@ -39,7 +37,6 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
             name="password"
             placeholder="Digite sua senha"
           />
-
           <button
             data-testid="submit"
             disabled
@@ -48,11 +45,10 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
           >
             Entrar
           </button>
-          <span className={Styles.link}>Criar Conta</span>
+          <span className={Styles.link}>Criar conta</span>
           <FormStatus />
-        </form>{" "}
+        </form>
       </Context.Provider>
-
       <Footer />
     </div>
   );
