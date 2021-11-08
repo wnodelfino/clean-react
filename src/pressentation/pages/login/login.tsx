@@ -22,13 +22,11 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     passwordError: "Campo obrigatório",
     mainError: "",
   });
-
   useEffect(() => {
     validation.validate({ email: state.email });
   }, [state.email]);
-
   useEffect(() => {
-    validation.validate({ email: state.password });
+    validation.validate({ password: state.password });
   }, [state.password]);
 
   return (

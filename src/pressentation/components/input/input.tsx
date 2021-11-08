@@ -25,12 +25,11 @@ const Input: React.FC<Props> = (props: Props) => {
   const getTitle = (): string => {
     return error;
   };
-
   return (
     <div className={Styles.inputWrap}>
       <input
         {...props}
-        data-testis={props.name}
+        data-testid={props.name}
         readOnly
         onFocus={enableInput}
         onChange={handleChange}
