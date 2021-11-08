@@ -5,8 +5,8 @@ import {
   fireEvent,
   cleanup,
 } from "@testing-library/react";
-import { Validation } from "@/pressentation/protocols/validation";
 import Login from "./login";
+import { Validation } from "@/pressentation/protocols/validation";
 
 type SutTypes = {
   sut: RenderResult;
@@ -57,7 +57,6 @@ describe("Login Component", () => {
       email: "any_email",
     });
   });
-
   test("Should call Validation with correct password", () => {
     const { sut, validationSpy } = makeSut();
     const passwordInput = sut.getByTestId("password");
