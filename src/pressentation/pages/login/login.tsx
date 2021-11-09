@@ -10,7 +10,7 @@ import Context from "@/pressentation/contexts/form/form-context";
 import { Validation } from "@/pressentation/protocols/validation";
 
 type Props = {
-  validation: Validation;
+  validation?: Validation;
 };
 
 const Login: React.FC<Props> = ({ validation }: Props) => {
@@ -23,10 +23,10 @@ const Login: React.FC<Props> = ({ validation }: Props) => {
     mainError: "",
   });
   useEffect(() => {
-    validation.validate({ email: state.email });
+    validation.validate("email", state.email);
   }, [state.email]);
   useEffect(() => {
-    validation.validate({ password: state.password });
+    validation.validate("password", state.password);
   }, [state.password]);
 
   return (
