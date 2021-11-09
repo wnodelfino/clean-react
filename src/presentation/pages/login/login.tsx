@@ -5,9 +5,9 @@ import {
   Input,
   LoginHeader,
   FormStatus,
-} from "@/pressentation/components";
-import Context from "@/pressentation/contexts/form/form-context";
-import { Validation } from "@/pressentation/protocols/validation";
+} from "@/presentation/components";
+import Context from "@/presentation/contexts/form/form-context";
+import { Validation } from "@/presentation/protocols/validation";
 
 type Props = {
   validation?: Validation;
