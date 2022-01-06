@@ -31,6 +31,17 @@ const makeSut = (params?: SutParams): SutTypes => {
   };
 };
 
+const simulateValidSubmit = (
+  sut: RenderResult,
+  email = faker.internet.email(),
+  password = faker.internet.password()
+): void => {
+  const emailInput = sut.getByTestId("email");
+  const passwordInput = sut.getByTestId("password");
+  const submitButton = sut.getByTestId("submit");
+  fireEvent.click(submitButton);
+};
+
 describe("Login Component", () => {
   afterEach(cleanup);
 
@@ -127,14 +138,10 @@ describe("Login Component", () => {
     const { sut, authenticationSpy } = makeSut();
     const emailInput = sut.getByTestId("email");
     const email = faker.internet.email();
-    fireEvent.input(emailInput, {
-      target: { value: email },
-    });
+    fireEvent.input(emailInput, { target: { value: email } });
     const passwordInput = sut.getByTestId("password");
     const password = faker.internet.password();
-    fireEvent.input(passwordInput, {
-      target: { value: password },
-    });
+    fireEvent.input(passwordInput, { target: { value: password } });
     const submitButton = sut.getByTestId("submit");
     fireEvent.click(submitButton);
     expect(authenticationSpy.params).toEqual({ email, password });
