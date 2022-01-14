@@ -3,7 +3,7 @@ import { AuthenticationParams, Authentication } from "@/domain/usecases";
 import { InvalidCredentialsError, UnexpectedError } from "@/domain/errors";
 import { AccountModel } from "@/domain/models";
 
-export class RemoteAuthetication implements Authentication {
+export class RemoteAuthentication implements Authentication {
   constructor(
     private readonly url: string,
     private readonly httpPostClient: HttpPostClient<
