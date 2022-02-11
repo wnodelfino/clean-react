@@ -13,6 +13,7 @@ body {
 }
 
 input[type="password"],
+input[type="text"],
 input[type="email"] {
   border: 1px solid $Light;
   line-height: 40px;
