@@ -11,9 +11,10 @@ import {
 } from "@testing-library/react";
 import { Login } from "@/presentation/pages";
 import {
-  ValidationStub,
   AuthenticationSpy,
+  Helper,
   SaveAccessTokenMock,
+  ValidationStub,
 } from "@/presentation/test";
 import { InvalidCredentialsError } from "@/domain/errors";
 
@@ -77,21 +78,6 @@ const pupulatePasswordField = (
   fireEvent.input(passwordInput, { target: { value: password } });
 };
 
-const testStatusForField = (
-  sut: RenderResult,
-  fildName: string,
-  validationError?: string
-): void => {
-  const fieldStatus = sut.getByTestId(`${fildName}-status`);
-  expect(fieldStatus.title).toBe(validationError || "Tudo certo!");
-  expect(fieldStatus.textContent).toBe(validationError ? "🔴" : "🟢");
-};
-
-const testErrorWrapCount = (sut: RenderResult, count: number): void => {
-  const errorWrap = sut.getByTestId("error-wrap");
-  expect(errorWrap.childElementCount).toBe(count);
-};
-
 const testElementExits = (sut: RenderResult, fildName: string): void => {
   const el = sut.getByTestId(fildName);
   expect(el).toBeTruthy();
@@ -106,58 +92,49 @@ const testElementText = (
   expect(el.textContent).toBe(text);
 };
 
-const testButtonIsDisabled = (
-  sut: RenderResult,
-  fildName: string,
-  isDisabled: boolean
-): void => {
-  const button = sut.getByTestId(fildName) as HTMLButtonElement;
-  expect(button.disabled).toBe(isDisabled);
-};
-
 describe("Login Component", () => {
   afterEach(cleanup);
 
   test("Should start with initial state", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    testErrorWrapCount(sut, 0);
-    testButtonIsDisabled(sut, "submit", true);
-    testStatusForField(sut, "email", validationError);
-    testStatusForField(sut, "password", validationError);
+    Helper.testChildCount(sut, "error-wrap", 0);
+    Helper.testButtonIsDisabled(sut, "submit", true);
+    Helper.testStatusForField(sut, "email", validationError);
+    Helper.testStatusForField(sut, "password", validationError);
   });
 
   test("Should show email error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     pupulateEmailField(sut);
-    testStatusForField(sut, "email", validationError);
+    Helper.testStatusForField(sut, "email", validationError);
   });
 
   test("Should show password error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
     pupulatePasswordField(sut);
-    testStatusForField(sut, "password", validationError);
+    Helper.testStatusForField(sut, "password", validationError);
   });
 
   test("Should show valid email state if Validation succeeds", () => {
     const { sut } = makeSut();
     pupulateEmailField(sut);
-    testStatusForField(sut, "email");
+    Helper.testStatusForField(sut, "email");
   });
 
   test("Should show valid password state if Validation succeeds", () => {
     const { sut } = makeSut();
     pupulatePasswordField(sut);
-    testStatusForField(sut, "password");
+    Helper.testStatusForField(sut, "password");
   });
 
   test("Should enable submit button if form is valid", () => {
     const { sut } = makeSut();
     pupulateEmailField(sut);
     pupulatePasswordField(sut);
-    testButtonIsDisabled(sut, "submit", false);
+    Helper.testButtonIsDisabled(sut, "submit", false);
   });
 
   test("Should show spinner on submit", async () => {
@@ -196,7 +173,7 @@ describe("Login Component", () => {
       .mockReturnValueOnce(Promise.reject(error));
     await simulateValidSubmit(sut);
     testElementText(sut, "main-error", error.message);
-    testErrorWrapCount(sut, 1);
+    Helper.testChildCount(sut, "error-wrap", 1);
   });
 
   test("Should call SaveAccessToken on success", async () => {
@@ -217,7 +194,7 @@ describe("Login Component", () => {
       .mockReturnValueOnce(Promise.reject(error));
     await simulateValidSubmit(sut);
     testElementText(sut, "main-error", error.message);
-    testErrorWrapCount(sut, 1);
+    Helper.testChildCount(sut, "error-wrap", 1);
   });
 
   test("Should go to signup page", async () => {
