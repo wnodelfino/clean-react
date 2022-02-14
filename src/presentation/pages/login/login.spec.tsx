@@ -55,27 +55,11 @@ const simulateValidSubmit = async (
   email = faker.internet.email(),
   password = faker.internet.password()
 ): Promise<void> => {
-  pupulateEmailField(sut, email);
-  pupulatePasswordField(sut, password);
+  Helper.pupulateField(sut, "email", email);
+  Helper.pupulateField(sut, "password", password);
   const form = sut.getByTestId("form");
   fireEvent.submit(form);
   await waitFor(() => form);
-};
-
-const pupulateEmailField = (
-  sut: RenderResult,
-  email = faker.internet.email()
-): void => {
-  const emailInput = sut.getByTestId("email");
-  fireEvent.input(emailInput, { target: { value: email } });
-};
-
-const pupulatePasswordField = (
-  sut: RenderResult,
-  password = faker.internet.password()
-): void => {
-  const passwordInput = sut.getByTestId("password");
-  fireEvent.input(passwordInput, { target: { value: password } });
 };
 
 const testElementExits = (sut: RenderResult, fildName: string): void => {
@@ -107,33 +91,33 @@ describe("Login Component", () => {
   test("Should show email error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    pupulateEmailField(sut);
+    Helper.pupulateField(sut, "email");
     Helper.testStatusForField(sut, "email", validationError);
   });
 
   test("Should show password error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    pupulatePasswordField(sut);
+    Helper.pupulateField(sut, "password");
     Helper.testStatusForField(sut, "password", validationError);
   });
 
   test("Should show valid email state if Validation succeeds", () => {
     const { sut } = makeSut();
-    pupulateEmailField(sut);
+    Helper.pupulateField(sut, "email");
     Helper.testStatusForField(sut, "email");
   });
 
   test("Should show valid password state if Validation succeeds", () => {
     const { sut } = makeSut();
-    pupulatePasswordField(sut);
+    Helper.pupulateField(sut, "password");
     Helper.testStatusForField(sut, "password");
   });
 
   test("Should enable submit button if form is valid", () => {
     const { sut } = makeSut();
-    pupulateEmailField(sut);
-    pupulatePasswordField(sut);
+    Helper.pupulateField(sut, "email");
+    Helper.pupulateField(sut, "password");
     Helper.testButtonIsDisabled(sut, "submit", false);
   });
 

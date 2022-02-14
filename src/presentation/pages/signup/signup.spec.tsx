@@ -26,15 +26,6 @@ const makeSut = (params?: SutParams): SutTypes => {
   };
 };
 
-const pupulateField = (
-  sut: RenderResult,
-  fildName: string,
-  value = faker.random.word()
-): void => {
-  const input = sut.getByTestId(fildName);
-  fireEvent.input(input, { target: { value } });
-};
-
 describe("Signup Component", () => {
   afterEach(cleanup);
 
@@ -52,7 +43,7 @@ describe("Signup Component", () => {
   test("Should show name error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    pupulateField(sut, "name");
+    Helper.pupulateField(sut, "name");
     Helper.testStatusForField(sut, "name", validationError);
   });
 });
