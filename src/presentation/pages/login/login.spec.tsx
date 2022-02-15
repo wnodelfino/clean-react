@@ -55,8 +55,8 @@ const simulateValidSubmit = async (
   email = faker.internet.email(),
   password = faker.internet.password()
 ): Promise<void> => {
-  Helper.pupulateField(sut, "email", email);
-  Helper.pupulateField(sut, "password", password);
+  Helper.populateField(sut, "email", email);
+  Helper.populateField(sut, "password", password);
   const form = sut.getByTestId("form");
   fireEvent.submit(form);
   await waitFor(() => form);
@@ -86,40 +86,40 @@ describe("Login Component", () => {
   test("Should show email error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    Helper.pupulateField(sut, "email");
+    Helper.populateField(sut, "email");
     Helper.testStatusForField(sut, "email", validationError);
   });
 
   test("Should show password error if Validation fails", () => {
     const validationError = faker.random.words();
     const { sut } = makeSut({ validationError });
-    Helper.pupulateField(sut, "password");
+    Helper.populateField(sut, "password");
     Helper.testStatusForField(sut, "password", validationError);
   });
 
   test("Should show valid email state if Validation succeeds", () => {
     const { sut } = makeSut();
-    Helper.pupulateField(sut, "email");
+    Helper.populateField(sut, "email");
     Helper.testStatusForField(sut, "email");
   });
 
   test("Should show valid password state if Validation succeeds", () => {
     const { sut } = makeSut();
-    Helper.pupulateField(sut, "password");
+    Helper.populateField(sut, "password");
     Helper.testStatusForField(sut, "password");
   });
 
   test("Should enable submit button if form is valid", () => {
     const { sut } = makeSut();
-    Helper.pupulateField(sut, "email");
-    Helper.pupulateField(sut, "password");
+    Helper.populateField(sut, "email");
+    Helper.populateField(sut, "password");
     Helper.testButtonIsDisabled(sut, "submit", false);
   });
 
   test("Should show spinner on submit", async () => {
     const { sut } = makeSut();
     await simulateValidSubmit(sut);
-    Helper.testElementExits(sut, "spinner");
+    Helper.testElementExists(sut, "spinner");
   });
 
   test("Should call Authetication with correct values", async () => {

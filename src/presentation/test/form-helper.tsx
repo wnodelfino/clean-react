@@ -29,7 +29,7 @@ export const testStatusForField = (
   expect(fieldStatus.textContent).toBe(validationError ? "🔴" : "🟢");
 };
 
-export const pupulateField = (
+export const populateField = (
   sut: RenderResult,
   fildName: string,
   value = faker.random.word()
@@ -38,7 +38,10 @@ export const pupulateField = (
   fireEvent.input(input, { target: { value } });
 };
 
-export const testElementExits = (sut: RenderResult, fildName: string): void => {
+export const testElementExists = (
+  sut: RenderResult,
+  fildName: string
+): void => {
   const el = sut.getByTestId(fildName);
   expect(el).toBeTruthy();
 };
