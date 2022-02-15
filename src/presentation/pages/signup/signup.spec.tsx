@@ -6,6 +6,7 @@ import {
   render,
   cleanup,
   fireEvent,
+  waitFor,
 } from "@testing-library/react";
 import { Helper, ValidationStub } from "@/presentation/test";
 
@@ -24,6 +25,26 @@ const makeSut = (params?: SutParams): SutTypes => {
   return {
     sut,
   };
+};
+
+const simulateValidSubmit = async (
+  sut: RenderResult,
+  name = faker.name.findName(),
+  email = faker.internet.email(),
+  password = faker.internet.password()
+): Promise<void> => {
+  Helper.pupulateField(sut, "name", name);
+  Helper.pupulateField(sut, "email", email);
+  Helper.pupulateField(sut, "password", password);
+  Helper.pupulateField(sut, "passwordConfirmation", password);
+  const form = sut.getByTestId("form");
+  fireEvent.submit(form);
+  await waitFor(() => form);
+};
+
+const testElementExits = (sut: RenderResult, fildName: string): void => {
+  const el = sut.getByTestId(fildName);
+  expect(el).toBeTruthy();
 };
 
 describe("Signup Component", () => {
@@ -99,5 +120,11 @@ describe("Signup Component", () => {
     Helper.pupulateField(sut, "password");
     Helper.pupulateField(sut, "passwordConfirmation");
     Helper.testButtonIsDisabled(sut, "submit", false);
+  });
+
+  test("Should show spinner on submit", async () => {
+    const { sut } = makeSut();
+    await simulateValidSubmit(sut);
+    testElementExits(sut, "spinner");
   });
 });
