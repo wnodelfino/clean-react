@@ -42,11 +42,6 @@ const simulateValidSubmit = async (
   await waitFor(() => form);
 };
 
-const testElementExits = (sut: RenderResult, fildName: string): void => {
-  const el = sut.getByTestId(fildName);
-  expect(el).toBeTruthy();
-};
-
 describe("Signup Component", () => {
   afterEach(cleanup);
 
@@ -125,6 +120,6 @@ describe("Signup Component", () => {
   test("Should show spinner on submit", async () => {
     const { sut } = makeSut();
     await simulateValidSubmit(sut);
-    testElementExits(sut, "spinner");
+    Helper.testElementExits(sut, "spinner");
   });
 });

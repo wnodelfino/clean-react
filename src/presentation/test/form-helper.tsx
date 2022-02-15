@@ -37,3 +37,8 @@ export const pupulateField = (
   const input = sut.getByTestId(fildName);
   fireEvent.input(input, { target: { value } });
 };
+
+export const testElementExits = (sut: RenderResult, fildName: string): void => {
+  const el = sut.getByTestId(fildName);
+  expect(el).toBeTruthy();
+};
