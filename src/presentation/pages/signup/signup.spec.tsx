@@ -91,4 +91,13 @@ describe("Signup Component", () => {
     Helper.pupulateField(sut, "passwordConfirmation");
     Helper.testStatusForField(sut, "passwordConfirmation");
   });
+
+  test("Should enable submit button if form is valid", () => {
+    const { sut } = makeSut();
+    Helper.pupulateField(sut, "name");
+    Helper.pupulateField(sut, "email");
+    Helper.pupulateField(sut, "password");
+    Helper.pupulateField(sut, "passwordConfirmation");
+    Helper.testButtonIsDisabled(sut, "submit", false);
+  });
 });
